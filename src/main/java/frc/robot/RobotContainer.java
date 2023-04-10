@@ -37,10 +37,8 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-
     // Configure driving command
-    driveSubsystem.setDefaultCommand(
-        driveSubsystem.arcadeDriveCmd(() -> driverController.getLeftY(), () -> driverController.getRightX()));
+
   }
 
   /**
@@ -54,8 +52,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Driver
     driveSubsystem.setDefaultCommand(
-        driveSubsystem.tankDriveCmd(
-            () -> driverController.getLeftY(), () -> driverController.getRightY()));
+        driveSubsystem.arcadeDriveCmd(() -> driverController.getLeftY(), () -> driverController.getRightX()));
 
     // Co-Driver
   }
