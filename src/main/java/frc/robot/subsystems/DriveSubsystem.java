@@ -21,7 +21,6 @@ public class DriveSubsystem extends SubsystemBase {
     private final WPI_TalonSRX talonFR = new WPI_TalonSRX(DriveConstants.TALON_FR_ID);
     private final WPI_TalonSRX talonBR = new WPI_TalonSRX(DriveConstants.TALON_BR_ID);
     private final MotorControllerGroup rightGroup = new MotorControllerGroup(talonFR, talonBR);
-
     private final DifferentialDrive drive = new DifferentialDrive(leftGroup, rightGroup);
 
     public DriveSubsystem() {
@@ -39,13 +38,24 @@ public class DriveSubsystem extends SubsystemBase {
         drive.tankDrive(leftSpeed, rightSpeed);
     }
 
+    public void arcadeDrive(double speed, double rotation, boolean squareInputs) {
+        drive.arcadeDrive(speed, rotation);
+    }
+
+    public Command arcadeDriveCmd(Supplier<Double> speedSupplier, Supplier<Double> rotationSupplier) {
+        return this.runEnd(
+                () -> drive.arcadeDrive(speedSupplier.get() * DriveConstants.DRIVE_SPEED, rotationSupplier.get() * 0.5),
+                () -> drive.arcadeDrive(0, 0)
+
+        );
+    }
+
     public Command tankDriveCmd(Supplier<Double> leftSpeedSupplier, Supplier<Double> rightSpeedSupplier) {
 
-               return this.runEnd(
-                () -> drive.tankDrive(leftSpeedSupplier.get() * DriveConstants.DRIVE_SPEED, 
-                rightSpeedSupplier.get() * DriveConstants.DRIVE_SPEED),
-                () -> drive.tankDrive(0, 0)
-        );
+        return this.runEnd(
+                () -> drive.tankDrive(leftSpeedSupplier.get() * DriveConstants.DRIVE_SPEED,
+                        rightSpeedSupplier.get() * DriveConstants.DRIVE_SPEED),
+                () -> drive.tankDrive(0, 0));
     }
 
     @Override

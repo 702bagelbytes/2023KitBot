@@ -40,10 +40,8 @@ public class RobotContainer {
 
     // Configure driving command
     driveSubsystem.setDefaultCommand(
-        driveSubsystem.tankDriveCmd(() -> driverController.getLeftY(), () -> driverController.getRightY()));
+        driveSubsystem.arcadeDriveCmd(() -> driverController.getLeftY(), () -> driverController.getRightX()));
   }
-
- 
 
   /**
    * Use this method to define your button->command mappings. Buttons can be
@@ -57,7 +55,7 @@ public class RobotContainer {
     // Driver
     driveSubsystem.setDefaultCommand(
         driveSubsystem.tankDriveCmd(
-            ()-> driverController.getLeftY(), ()-> driverController.getRightY()));
+            () -> driverController.getLeftY(), () -> driverController.getRightY()));
 
     // Co-Driver
   }
