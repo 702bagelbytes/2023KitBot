@@ -25,7 +25,7 @@ public final class Constants {
         public static final int TALON_FR_ID = 1; // KitBot 2023
         public static final int TALON_BR_ID = 27; // KitBot 2023
 
-        public static final double DRIVE_SPEED = 0.5;
+        public static final double DRIVE_SPEED = 1;
     }
 
     

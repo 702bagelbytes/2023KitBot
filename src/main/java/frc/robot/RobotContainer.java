@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ControllerConstants;
+import frc.robot.subsystems.CameraSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -30,6 +31,7 @@ public class RobotContainer {
   private final CommandXboxController coDriverController = new CommandXboxController(
       ControllerConstants.CODRIVER_PORT);
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
+  private final CameraSubsystem cameraSubsystem = new CameraSubsystem();
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -37,13 +39,9 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-
     // Configure driving command
-    driveSubsystem.setDefaultCommand(
-        driveSubsystem.tankDriveCmd(() -> driverController.getLeftY(), () -> driverController.getRightY()));
-  }
 
- 
+  }
 
   /**
    * Use this method to define your button->command mappings. Buttons can be
@@ -56,8 +54,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Driver
     driveSubsystem.setDefaultCommand(
-        driveSubsystem.tankDriveCmd(
-            ()-> driverController.getLeftY(), ()-> driverController.getRightY()));
+        driveSubsystem.arcadeDriveCmd(() -> -driverController.getLeftY(), () -> -driverController.getRightX()));
 
     // Co-Driver
   }
